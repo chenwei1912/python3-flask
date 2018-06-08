@@ -1,0 +1,88 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}System Admin{% endblock %}
+
+{% block metas %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+{% endblock metas %}
+
+{% block styles %}
+    {{ super() }}
+    <link href="/static/mystyle.css" rel="stylesheet">
+{% endblock styles %}
+
+{% block navbar %}
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ url_for('show_index') }}">Home</a>
+            </div>
+
+            {% if current_user.is_authenticated %}
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a class="btn" href="{{ url_for('logout') }}">logout</a></li>
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+    </nav>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid">
+
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning alert-dismissible col-sm-6 col-sm-offset-4 col-md-6 col-md-offset-4" role="alert">
+            <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">close</span></button>
+            {{ message }}
+        </div>
+        {% endfor %}
+
+        <div class="row">
+
+            {% if current_user.is_authenticated %}
+            <div id="navbar_left" class="col-sm-3 col-md-2 sidebar">
+              <ul class="nav nav-sidebar">
+                <!--li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li-->
+                <li><a href="{{ url_for('show_index') }}">Overview</a></li>
+                <li><a href="{{ url_for('user_show') }}">Users</a></li>
+                <li><a href="{{ url_for('device_show') }}">Devices</a></li>
+              </ul>
+              <ul class="nav nav-sidebar">
+                <li><a href="#">Undefined Item</a></li>
+                <li><a href="#">Undefined Item</a></li>
+                <li><a href="#">Undefined Item</a></li>
+                <li><a href="#">Undefined Item</a></li>
+                <li><a href="#">Undefined Item</a></li>
+              </ul>
+              <ul class="nav nav-sidebar">
+                <li><a href="#">Undefined Item</a></li>
+                <li><a href="#">Undefined Item</a></li>
+                <li><a href="#">Undefined Item</a></li>
+              </ul>
+            </div>
+            {% endif %}
+
+            {% block page_content %} {% endblock %}
+
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="/static/myjs.js?v=0.1"></script>
+{% endblock scripts %}

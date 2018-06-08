@@ -1,0 +1,11 @@
+<html>
+<head>
+    <title>Welcome, {{ username }}</title>
+</head>
+<body>
+    <p>Welcome, {{ username }}!</p>
+    <ul class="nav navbar-nav pull-right">
+        <li><a class="btn" href="{{ url_for('logout') }}">logout</a></li>
+    </ul>
+</body>
+</html>
